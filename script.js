@@ -1,12 +1,12 @@
 function getComputerChoice() {
     let choice = Math.floor(Math.random() * 3 ) + 1;
     switch(choice){
-        case 1: return "Rock";
-        case 2: return "Paper";
-        case 3: return "Scissors";
+        case 1: return "rock";
+        case 2: return "paper";
+        case 3: return "scissors";
     }
 }
-
+/*
 function getPlayerChoice(){
     let playerChoice;
     while(playerChoice !== "Rock" && playerChoice !== "Paper" && playerChoice !== "Scissors"){
@@ -17,26 +17,40 @@ function getPlayerChoice(){
         }
     }
     return playerChoice;
-}
+}  */
+const results = document.querySelector(".results")
+
 
 function playRound(playerSelection, computerSelection){
+
+    console.log(`player = ${playerSelection}`);
+    console.log(`cpu = ${computerSelection}`);
+    console.log(playerSelection == computerSelection);
  
-    if(playerSelection === computerSelection){
-        console.log(`Tie Game! You both chose ${playerSelection}`);
-        return 0;
+    let message = "";
+    if(playerSelection == computerSelection){
+        message = `Tie Game! You both chose ${playerSelection}`;
+        //return 0;
     }
-    if( (playerSelection === "Rock" && computerSelection === "Scissors") ||
-        (playerSelection === "Scissors" && computerSelection === "Paper") ||
-        (playerSelection === "Paper" && computerSelection === "Rock")){
-            console.log(`You Win! ${playerSelection} beats ${computerSelection}!`);
-            return 1;
+    else if( (playerSelection == "rock" && computerSelection == "scissors") ||
+        (playerSelection == "scissors" && computerSelection == "paper") ||
+        (playerSelection == "paper" && computerSelection == "rock")){
+            message = `You Win! ${playerSelection} beats ${computerSelection}!`;
+            //return 1;
         }
     else {
-        console.log(`You Lose! ${computerSelection} beats ${playerSelection}!`);
-        return -1;
+        message = `You Lose! ${computerSelection} beats ${playerSelection}!`;
+        //return -1;
     }
+    console.log(message);
+    results.textContent = message;
+
 }
 
+const buttons = document.querySelectorAll(".player-input");
+buttons.forEach(button => button.addEventListener("click", (e)=> playRound(e.target.dataset.play, getComputerChoice())))
+
+/*
 function game() {
     let playerWins = 0;
     let computerWins = 0;
@@ -69,4 +83,4 @@ let wannaPlay = true;
 while(wannaPlay){
     game();
     wannaPlay = confirm("Play again?");
-};
+}; */
